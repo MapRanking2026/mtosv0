@@ -1,0 +1,85 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  BadgeCheck,
+  BriefcaseBusiness,
+  Building2,
+  CalendarRange,
+  ClipboardCheck,
+  Command,
+  LayoutDashboard,
+  Settings,
+  Sparkles,
+} from "lucide-react";
+
+import { cn } from "@/src/lib/utils";
+
+const navItems = [
+  { href: "/command-center", label: "Command Center", icon: LayoutDashboard },
+  { href: "/clients", label: "Clients", icon: Building2 },
+  { href: "/monthly-touch", label: "Monthly Touch", icon: CalendarRange },
+  { href: "/commitments", label: "Commitments", icon: BadgeCheck },
+  { href: "/opportunities", label: "Opportunities", icon: BriefcaseBusiness },
+  { href: "/qa", label: "QA", icon: ClipboardCheck },
+  { href: "/settings", label: "Settings", icon: Settings },
+];
+
+export function SidebarNav() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="flex h-full w-full flex-col justify-between rounded-[32px] border border-white/10 bg-[#0b1321]/90 p-5 shadow-[0_35px_80px_rgba(3,7,18,0.55)]">
+      <div className="space-y-6">
+        <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+          <div className="flex items-center gap-3">
+            <div className="rounded-2xl bg-white/10 p-3">
+              <Sparkles className="h-5 w-5 text-[#d7f5ec]" />
+            </div>
+            <div>
+              <p className="font-medium text-white">Monthly Touch OS</p>
+              <p className="text-sm text-slate-400">Account Manager intelligence layer</p>
+            </div>
+          </div>
+        </div>
+
+        <nav className="space-y-2">
+          {navItems.map(({ href, label, icon: Icon }) => {
+            const active = pathname === href || pathname.startsWith(`${href}/`);
+            const monthlyTouchActiveStyle =
+              href === "/monthly-touch" && active ? { color: "#1d2d49" } : undefined;
+            return (
+              <Link
+                key={href}
+                href={href}
+                style={monthlyTouchActiveStyle}
+                className={cn(
+                  "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-all",
+                  active
+                    ? "bg-white text-slate-950 shadow-lg shadow-white/10"
+                    : "text-slate-300 hover:bg-white/7 hover:text-white",
+                )}
+              >
+                <Icon className="h-4 w-4" />
+                <span className="font-medium">{label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+
+      <div className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+        <div className="flex items-center gap-3">
+          <div className="rounded-2xl bg-[#d7f5ec] p-3 text-slate-950">
+            <Command className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-white">AI Command Palette</p>
+            <p className="text-xs text-slate-400">Search clients, commitments, and live actions</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  );
+}
