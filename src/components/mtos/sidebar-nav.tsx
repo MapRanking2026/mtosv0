@@ -47,13 +47,12 @@ export function SidebarNav() {
         <nav className="space-y-2">
           {navItems.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
-            const monthlyTouchActiveStyle =
-              href === "/monthly-touch" && active ? { color: "#1d2d49" } : undefined;
+            const activeStyle = active ? { color: "#1d2e4b" } : undefined;
             return (
               <Link
                 key={href}
                 href={href}
-                style={monthlyTouchActiveStyle}
+                style={activeStyle}
                 className={cn(
                   "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm transition-all",
                   active
